@@ -16,10 +16,13 @@ pub mod range;
 pub mod reference;
 pub mod string;
 
+pub mod chars;
+
 #[derive(Clone)]
 pub enum RulePart {
     Range(range::Rule),
     String(string::Rule),
+    Chars(chars::Rule),
     Arregation(arregation::Rule),
     Or(or::Rule),
     Not(not::Rule),
@@ -91,6 +94,10 @@ pub fn c<T: Into<RulePart>>(s: T, c: char) -> RulePart {
     });
 }
 
+pub fn ch(s: &'static str) -> RulePart {
+    return RulePart::Chars(chars::Rule { chars: s });
+}
+
 pub fn n<T: Into<RulePart>>(s: T) -> RulePart {
     return RulePart::Not(not::Rule {
         rule: Arc::new(s.into()),
@@ -157,6 +164,7 @@ impl RulePart {
         match self {
             RulePart::Range(rule) => rule.fullfills(input),
             RulePart::String(rule) => rule.fullfills(input),
+            RulePart::Chars(rule) => rule.fullfills(input),
             RulePart::Arregation(rule) => rule.fullfills(input),
             RulePart::Or(rule) => rule.fullfills(input),
             RulePart::Not(rule) => rule.fullfills(input),
@@ -169,6 +177,7 @@ impl RulePart {
         match self {
             RulePart::Range(rule) => rule.len(input),
             RulePart::String(rule) => rule.len(input),
+            RulePart::Chars(rule) => rule.len(input),
             RulePart::Arregation(rule) => rule.len(input),
             RulePart::Or(rule) => rule.len(input),
             RulePart::Not(rule) => rule.len(input),

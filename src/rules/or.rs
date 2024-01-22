@@ -12,7 +12,7 @@ impl Rule {
     }
 
     pub fn len(&self, input: &Input) -> usize {
-        todo!()
+        self.rules.iter().map(|rule|rule.len(input)).max().unwrap_or(0)
     }
 }
 

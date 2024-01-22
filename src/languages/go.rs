@@ -1,4 +1,6 @@
-use crate::rules::{grammar::{Grammar, self}, n, r, rf};
+use crate::rules::{grammar::Grammar, n, r, rf};
+
+use super::testing::{test_achars, test_nachars};
 
 pub fn grammar() -> Grammar {
     let mut grammar = Grammar::default();
@@ -320,19 +322,3 @@ fn characters() {
 }
 
 
-fn test_nachars(grammar : &Grammar, rulename : &str, chars : &str) {
-    for c in chars.chars() {
-        let nodes = grammar.parse(rulename, &c.to_string());
-        assert_eq!(nodes.len(), 0);
-    }
-}
-
-fn test_achars(grammar : &Grammar, rulename : &str, chars : &str) {
-    for c in chars.chars() {
-        let nodes = grammar.parse(rulename, &c.to_string());
-        assert_eq!(nodes.len(), 1);
-        assert_eq!(nodes[0].rulename, rulename);
-        assert_eq!(nodes[0].range, 0..1);
-        assert_eq!(nodes[0].subnodes.len(), 0);
-    }
-}

@@ -1,11 +1,19 @@
-use std::collections::HashMap;
-
 use super::{Input, RulePart};
 
 pub struct Node {
     pub rulename: &'static str,
     pub range: std::ops::Range<usize>,
     pub subnodes: Vec<Node>,
+}
+
+impl Node {
+    pub fn new(rulename: &'static str)->Node{
+        Node { rulename, range: 0..0, subnodes: vec![] }
+    }
+
+    pub fn sub(rulename: &'static str, subnodes: Vec<Node>)->Node{
+        Node { rulename, range: 0..0, subnodes }
+    }
 }
 
 pub struct Rule {
