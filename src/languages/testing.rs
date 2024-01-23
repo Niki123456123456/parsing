@@ -1,5 +1,3 @@
-use std::f32::consts::E;
-
 use crate::rules::{grammar::Grammar, rule::Node};
 
 pub fn test_nachars(grammar: &Grammar, rulename: &str, chars: &str) {
